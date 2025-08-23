@@ -28,6 +28,13 @@ form.addEventListener("submit", async function (e) {
     messageBox.textContent = "✅ Submission sent.";
     messageBox.className = "message success";
     form.reset();
+    messageBox.style.display = "block";
+
+    // Hide message after 3 seconds
+    setTimeout(() => {
+      messageBox.style.display = "none";
+    }, 3000);
+    
   } catch (error) {
     messageBox.textContent = "❌ Failed to submit attendance. Try again.";
     messageBox.className = "message error";
