@@ -18,24 +18,36 @@ form.addEventListener("submit", async function (e) {
   try {
     const response = await fetch(SCRIPT_URL, {
       method: "POST",
+      // 🛑 The critical change is adding 'mode: "no-cors"'
+      mode: "no-cors",
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
       },
     });
 
-    const result = await response.json();
+    // 🛑 Because of 'no-cors' mode, you cannot access the response.
+    // The browser treats it as an "opaque" response for security reasons.
+    // The lines below will cause an error if you try to run them.
+    // const result = await response.json();
 
-    if (result.result === "success") {
-      messageBox.textContent = "✅ " + result.message;
-      messageBox.className = "message success";
-      form.reset();
-    } else if (result.result === "duplicate") {
-      messageBox.textContent = "⚠️ " + result.message;
-      messageBox.className = "message error";
-    } else {
-      throw new Error("Submission failed");
-    }
+    // if (result.result === "success") {
+    //   messageBox.textContent = "✅ " + result.message;
+    //   messageBox.className = "message success";
+    //   form.reset();
+    // } else if (result.result === "duplicate") {
+    //   messageBox.textContent = "⚠️ " + result.message;
+    //   messageBox.className = "message error";
+    // } else {
+    //   throw new Error("Submission failed");
+    // }
+
+    // Instead of parsing the response, you must assume the request succeeded.
+    // If you need confirmation, you'll need a different approach (like a proxy).
+
+    messageBox.textContent = "✅ Submission sent.";
+    messageBox.className = "message success";
+    form.reset();
   } catch (error) {
     messageBox.textContent = "❌ Failed to submit attendance. Try again.";
     messageBox.className = "message error";
