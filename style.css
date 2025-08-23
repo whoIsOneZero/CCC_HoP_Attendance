@@ -29,8 +29,12 @@ body {
 
 /* Logo */
 .logo {
-  width: 80px;
+  width: 60px;
+  height: 60px; /* force equal width & height */
+  border-radius: 50%; /* makes it circular */
+  object-fit: cover; /* ensures the image fills without stretching */
   margin-bottom: 15px;
+  border: 2px solid white; /* optional: gives a nice border around it */
 }
 
 /* Form fields */
