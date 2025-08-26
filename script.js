@@ -79,8 +79,8 @@ updateDateTime();
 setInterval(updateDateTime, 1000);
 
 // === Location Check (Church Premises) ===
-const CHURCH_LAT = 6.672607148959226;
-const CHURCH_LNG = -1.566895388468553;
+const CHURCH_LAT = 6.6726847;
+const CHURCH_LNG = -1.5657291;
 const RADIUS_METERS = 100; // allowed radius around church
 
 function getDistanceFromLatLonInM(lat1, lon1, lat2, lon2) {
