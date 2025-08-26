@@ -14,6 +14,15 @@ body {
   min-height: 100vh;
 }
 
+/* Top timestamp */
+#date-time {
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-align: center;
+  padding-top: 10px;
+}
 /* Centered card */
 .form-container {
   background: #0f1d3a;
@@ -92,32 +101,57 @@ button:hover {
 }
 
 /* Success/error messages */
-.message {
+/* .message {
   margin-top: 12px;
   padding: 12px;
   border-radius: 8px;
   display: none;
   font-size: 14px;
-  white-space: pre-line; /* respects line breaks like \n */
-  overflow-wrap: break-word; /* prevents text from being cut */
-}
+  white-space: pre-line;
+  overflow-wrap: break-word;
+} */
 
-.message.success {
+/* .message.success {
   background: rgba(110, 168, 131, 0.9);
   color: white;
-}
+} */
 
-.message.error {
+/* .message.error {
   background: rgba(220, 38, 38, 0.9);
   color: white;
+} */
+
+/* Centered popup overlay */
+.popup {
+  position: fixed;
+  inset: 0;
+  display: none; /* shown by JS */
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
 }
 
-/* Top timestamp */
-#date-time {
-  color: white;
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 15px;
+/* Popup box */
+.popup-content {
+  background: #0f1d3a;
+  color: #fff;
+  padding: 18px 22px;
+  border-radius: 12px;
+  max-width: 90vw;
+  width: min(360px, 90vw);
   text-align: center;
-  padding-top: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.4;
+  white-space: pre-line; /* respect \n */
+  overflow-wrap: break-word;
 }
+
+/* Variants */
+.popup-content.success {
+  background: #166534;
+} /* green */
+.popup-content.error {
+  background: #b91c1c;
+} /* red */

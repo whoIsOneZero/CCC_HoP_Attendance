@@ -1,9 +1,33 @@
 const form = document.getElementById("attendanceForm");
-const messageBox = document.getElementById("message");
+// const messageBox = document.getElementById("message");
+const popup = document.getElementById("popup");
+const popupContent = document.getElementById("popup-content");
 
-// Replace with your own Apps Script Web App URL
 const SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycbyjEf09bnAaZ46rlgKxrfRfKz_hqt5EZ0lEBByXfQGzG4S9p2MV08C7wsOb_cdzujlb/exec";
+
+// === Popup helpers ===
+function showPopup(message, type = "info") {
+  popupContent.textContent = message;
+  popupContent.className = `popup-content ${type}`;
+  popup.style.display = "flex";
+
+  // Auto-hide after 3 seconds
+  setTimeout(hidePopup, 3000);
+}
+
+function hidePopup() {
+  popup.style.display = "none";
+  popupContent.className = "popup-content";
+}
+
+// Close on background click or Esc
+popup.addEventListener("click", (e) => {
+  if (e.target === popup) hidePopup();
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") hidePopup();
+});
 
 // === Live Date & Time for Ghana (Africa/Accra) ===
 function updateDateTime() {
@@ -79,19 +103,12 @@ form.addEventListener("submit", async function (e) {
       },
     });
 
-    messageBox.textContent =
-      "Your attendance has been recorded.\nThank you for coming!🥳";
-    messageBox.className = "message success";
     form.reset();
-    messageBox.style.display = "block";
-
-    // Hide message after 3 seconds
-    setTimeout(() => {
-      messageBox.style.display = "none";
-    }, 3000);
+    showPopup(
+      "Your attendance has been recorded.\nThank you for coming!🥳",
+      "success"
+    );
   } catch (error) {
-    messageBox.textContent = "❌ Failed to submit attendance. Try again.";
-    messageBox.className = "message error";
-    messageBox.style.display = "block";
+    showPopup("❌ Failed to submit attendance. Try again.", "error");
   }
 });
