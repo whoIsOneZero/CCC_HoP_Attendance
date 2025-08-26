@@ -79,7 +79,8 @@ form.addEventListener("submit", async function (e) {
       },
     });
 
-    messageBox.textContent = "✅ Submission sent.";
+    messageBox.textContent =
+      "Your attendance has been recorded.\nThank you for coming!🥳";
     messageBox.className = "message success";
     form.reset();
     messageBox.style.display = "block";
