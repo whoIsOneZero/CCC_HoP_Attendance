@@ -103,15 +103,13 @@ button:hover {
 /* Success/error messages */
 /* .message {
   margin-top: 12px;
-  padding: 12px;
+  padding: 10px;
   border-radius: 8px;
   display: none;
   font-size: 14px;
-  white-space: pre-line;
-  overflow-wrap: break-word;
-} */
+}
 
-/* .message.success {
+.message.success {
   background: rgba(110, 168, 131, 0.9);
   color: white;
 } */
