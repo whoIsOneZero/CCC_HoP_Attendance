@@ -33,9 +33,8 @@ document.addEventListener("keydown", (e) => {
 function updateDateTime() {
   const now = new Date();
 
-  // Ordinal suffix for day
   function ordinal(n) {
-    if (n > 3 && n < 21) return n + "th"; // catch 11th-19th
+    if (n > 3 && n < 21) return n + "th";
     switch (n % 10) {
       case 1:
         return n + "st";
@@ -48,7 +47,6 @@ function updateDateTime() {
     }
   }
 
-  // Extract parts using toLocaleString with Ghana timezone
   const weekday = now.toLocaleString("en-GB", {
     weekday: "long",
     timeZone: "Africa/Accra",
@@ -69,46 +67,99 @@ function updateDateTime() {
     hour: "2-digit",
     minute: "2-digit",
     second: "2-digit",
-    hour12: false, // set to true if you want AM/PM
+    hour12: false,
     timeZone: "Africa/Accra",
   });
 
-  // Build final string with commas
   const formatted = `${weekday}, ${ordinal(day)} ${month}, ${year} at ${time}`;
-
   document.getElementById("date-time").textContent = formatted;
 }
 
 updateDateTime();
 setInterval(updateDateTime, 1000);
 
+// === Location Check (Church Premises) ===
+const CHURCH_LAT = 6.6707359364057135;
+const CHURCH_LNG = -1.5445674890701515;
+const RADIUS_METERS = 100; // allowed radius around church
+
+function getDistanceFromLatLonInM(lat1, lon1, lat2, lon2) {
+  const R = 6371000; // Earth radius in meters
+  const dLat = ((lat2 - lat1) * Math.PI) / 180;
+  const dLon = ((lon2 - lon1) * Math.PI) / 180;
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos((lat1 * Math.PI) / 180) *
+      Math.cos((lat2 * Math.PI) / 180) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return R * c;
+}
+
 // === Attendance Form Submission ===
 form.addEventListener("submit", async function (e) {
   e.preventDefault();
 
-  const data = {
-    name: document.getElementById("name").value,
-    id: document.getElementById("id").value,
-    type: document.getElementById("type").value,
-    notes: document.getElementById("notes").value,
-  };
-
-  try {
-    await fetch(SCRIPT_URL, {
-      method: "POST",
-      mode: "no-cors",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    form.reset();
+  // 1. Get user location before allowing attendance
+  if (!navigator.geolocation) {
     showPopup(
-      "Your attendance has been recorded.\nThank you for coming!🥳",
-      "success"
+      "⚠️ Location is required but not supported on this device.",
+      "error"
     );
-  } catch (error) {
-    showPopup("❌ Failed to submit attendance. Try again.", "error");
+    return;
   }
+
+  navigator.geolocation.getCurrentPosition(
+    async (position) => {
+      const userLat = position.coords.latitude;
+      const userLng = position.coords.longitude;
+
+      const distance = getDistanceFromLatLonInM(
+        userLat,
+        userLng,
+        CHURCH_LAT,
+        CHURCH_LNG
+      );
+
+      if (distance > RADIUS_METERS) {
+        showPopup(
+          "⚠️ You must be within the church premises to take attendance.",
+          "error"
+        );
+        return;
+      }
+
+      // 2. Proceed with attendance submission
+      const data = {
+        name: document.getElementById("name").value,
+        id: document.getElementById("id").value,
+        type: document.getElementById("type").value,
+        notes: document.getElementById("notes").value,
+      };
+
+      try {
+        await fetch(SCRIPT_URL, {
+          method: "POST",
+          mode: "no-cors",
+          body: JSON.stringify(data),
+          headers: { "Content-Type": "application/json" },
+        });
+
+        form.reset();
+        showPopup(
+          "✅ Your attendance has been recorded.\nThank you for coming!🥳",
+          "success"
+        );
+      } catch (error) {
+        showPopup("❌ Failed to submit attendance. Try again.", "error");
+      }
+    },
+    () => {
+      showPopup(
+        "⚠️ Please allow location access to record attendance.",
+        "error"
+      );
+    }
+  );
 });
