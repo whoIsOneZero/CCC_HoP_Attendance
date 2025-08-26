@@ -7,37 +7,39 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <!-- Top timestamp -->
-    <div id="date-time"></div>
+    <div class="container">
+      <!-- Top timestamp -->
+      <div id="date-time"></div>
 
-    <!-- Form Card -->
-    <div class="form-container">
-      <img src="ccc_theme_2025.jpg" alt="Church Logo" class="logo" />
+      <!-- Form Card -->
+      <div class="form-container">
+        <img src="ccc_theme_2025.jpg" alt="Church Logo" class="logo" />
 
-      <h2>CCC Spirit Surge Service Attendance</h2>
+        <h2>CCC Spirit Surge Service Attendance</h2>
 
-      <form id="attendanceForm">
-        <label for="name">Full Name</label>
-        <input type="text" id="name" required />
+        <form id="attendanceForm">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" required />
 
-        <label for="id">Member ID / Phone</label>
-        <input type="text" id="id" required />
+          <label for="id">Member ID / Phone</label>
+          <input type="text" id="id" required />
 
-        <label for="type">Attendance Type</label>
-        <select id="type" required>
-          <option value="Sunday Service">Sunday Service</option>
-          <option value="Youth Meeting">Youth Meeting</option>
-          <option value="Prayer Meeting">Prayer Meeting</option>
-          <option value="Other">Other</option>
-        </select>
+          <label for="type">Attendance Type</label>
+          <select id="type" required>
+            <option value="Sunday Service">Sunday Service</option>
+            <option value="Youth Meeting">Youth Meeting</option>
+            <option value="Prayer Meeting">Prayer Meeting</option>
+            <option value="Other">Other</option>
+          </select>
 
-        <label for="notes">Notes</label>
-        <textarea id="notes" placeholder="Optional notes"></textarea>
+          <label for="notes">Notes</label>
+          <textarea id="notes" placeholder="Optional notes"></textarea>
 
-        <button type="submit">Clock In</button>
-      </form>
+          <button type="submit">Clock In</button>
+        </form>
 
-      <div id="message" class="message"></div>
+        <div id="message" class="message"></div>
+      </div>
     </div>
 
     <script src="script.js"></script>

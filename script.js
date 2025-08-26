@@ -8,23 +8,53 @@ const SCRIPT_URL =
 // === Live Date & Time for Ghana (Africa/Accra) ===
 function updateDateTime() {
   const now = new Date();
-  const options = {
+
+  // Ordinal suffix for day
+  function ordinal(n) {
+    if (n > 3 && n < 21) return n + "th"; // catch 11th-19th
+    switch (n % 10) {
+      case 1:
+        return n + "st";
+      case 2:
+        return n + "nd";
+      case 3:
+        return n + "rd";
+      default:
+        return n + "th";
+    }
+  }
+
+  // Extract parts using toLocaleString with Ghana timezone
+  const weekday = now.toLocaleString("en-GB", {
     weekday: "long",
-    year: "numeric",
+    timeZone: "Africa/Accra",
+  });
+  const day = parseInt(
+    now.toLocaleString("en-GB", { day: "numeric", timeZone: "Africa/Accra" }),
+    10
+  );
+  const month = now.toLocaleString("en-GB", {
     month: "long",
-    day: "numeric",
+    timeZone: "Africa/Accra",
+  });
+  const year = now.toLocaleString("en-GB", {
+    year: "numeric",
+    timeZone: "Africa/Accra",
+  });
+  const time = now.toLocaleString("en-GB", {
     hour: "2-digit",
     minute: "2-digit",
     second: "2-digit",
-    timeZone: "Africa/Accra", // Force Ghana timezone
-  };
-  document.getElementById("date-time").textContent = now.toLocaleString(
-    "en-GB",
-    options
-  );
+    hour12: false, // set to true if you want AM/PM
+    timeZone: "Africa/Accra",
+  });
+
+  // Build final string with commas
+  const formatted = `${weekday}, ${ordinal(day)} ${month}, ${year} at ${time}`;
+
+  document.getElementById("date-time").textContent = formatted;
 }
 
-// Update immediately & every second
 updateDateTime();
 setInterval(updateDateTime, 1000);
 

@@ -94,9 +94,10 @@ button:hover {
 
 /* Top timestamp */
 #date-time {
-  position: absolute;
-  top: 10px;
   color: white;
-  font-size: 14px;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-align: center;
+  padding-top: 10px;
 }
-
