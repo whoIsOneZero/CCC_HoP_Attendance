@@ -5,6 +5,30 @@ const messageBox = document.getElementById("message");
 const SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycbyjEf09bnAaZ46rlgKxrfRfKz_hqt5EZ0lEBByXfQGzG4S9p2MV08C7wsOb_cdzujlb/exec";
 
+// === Live Date & Time for Ghana (Africa/Accra) ===
+function updateDateTime() {
+  const now = new Date();
+  const options = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    timeZone: "Africa/Accra", // Force Ghana timezone
+  };
+  document.getElementById("date-time").textContent = now.toLocaleString(
+    "en-GB",
+    options
+  );
+}
+
+// Update immediately & every second
+updateDateTime();
+setInterval(updateDateTime, 1000);
+
+// === Attendance Form Submission ===
 form.addEventListener("submit", async function (e) {
   e.preventDefault();
 
@@ -16,7 +40,7 @@ form.addEventListener("submit", async function (e) {
   };
 
   try {
-    const response = await fetch(SCRIPT_URL, {
+    await fetch(SCRIPT_URL, {
       method: "POST",
       mode: "no-cors",
       body: JSON.stringify(data),
@@ -34,11 +58,9 @@ form.addEventListener("submit", async function (e) {
     setTimeout(() => {
       messageBox.style.display = "none";
     }, 3000);
-    
   } catch (error) {
     messageBox.textContent = "❌ Failed to submit attendance. Try again.";
     messageBox.className = "message error";
+    messageBox.style.display = "block";
   }
-
-  messageBox.style.display = "block";
 });
