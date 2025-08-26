@@ -27,14 +27,32 @@ body {
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
 }
 
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 2px; /* space between logo and title */
+  margin-bottom: 30px;
+  text-align: left;
+}
+
 /* Logo */
 .logo {
   width: 60px;
-  height: 60px; /* force equal width & height */
-  border-radius: 50%; /* makes it circular */
-  object-fit: cover; /* ensures the image fills without stretching */
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
   margin-bottom: 15px;
-  border: 2px solid white; /* optional: gives a nice border around it */
+  border: 2px solid white;
+  display: block; /* makes it respect left alignment */
+  margin-left: 0; /* push it to the left */
+}
+
+.header h2 {
+  margin: 0;
+  font-size: 20px;
+  color: white;
+  text-align: center;
 }
 
 /* Form fields */
