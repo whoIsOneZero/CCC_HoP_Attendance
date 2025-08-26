@@ -94,10 +94,12 @@ button:hover {
 /* Success/error messages */
 .message {
   margin-top: 12px;
-  padding: 10px;
+  padding: 12px;
   border-radius: 8px;
   display: none;
   font-size: 14px;
+  white-space: pre-line; /* respects line breaks like \n */
+  overflow-wrap: break-word; /* prevents text from being cut */
 }
 
 .message.success {
