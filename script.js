@@ -4,7 +4,7 @@ const popup = document.getElementById("popup");
 const popupContent = document.getElementById("popup-content");
 
 const SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbyjEf09bnAaZ46rlgKxrfRfKz_hqt5EZ0lEBByXfQGzG4S9p2MV08C7wsOb_cdzujlb/exec";
+  "https://script.google.com/macros/s/AKfycbx9mZTy-62Z6KocbjnV75ZVl3G9LI-4xAP4vPOeneeJdmCdIUvj-k_YYqPWLvPb9e5Faw/exec";
 
 // === Popup helpers ===
 function showPopup(message, type = "info") {
@@ -134,6 +134,8 @@ form.addEventListener("submit", async function (e) {
       const data = {
         name: document.getElementById("name").value,
         id: document.getElementById("id").value,
+        residence: document.getElementById("residence").value,
+        membership: document.getElementById("membership").value,
         type: document.getElementById("type").value,
         notes: document.getElementById("notes").value,
       };
