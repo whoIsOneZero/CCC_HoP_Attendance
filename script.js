@@ -5,7 +5,7 @@ const popupContent = document.getElementById("popup-content");
 
 // === Google Apps Script Web App URL ===
 const SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbzZedXKXamYCEyx0WnMvDF4uwQ0ubG5AFphfR3E_448Gw08Rfutssyo7XTxBLp5eQaQ/exec";
+  "https://script.google.com/macros/s/AKfycbxwvTm5Rig-q4ROVJ-1ViisNtKkBibQ3e0XUHbvCo9Tr6PkguVfx8kpX-7eEn-AW8D1Eg/exec";
 
 // === Popup Helpers ===
 function showPopup(message, type = "info") {
