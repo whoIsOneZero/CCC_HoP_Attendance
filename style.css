@@ -100,25 +100,6 @@ button:hover {
   background: #128138;
 }
 
-/* Success/error messages */
-/* .message {
-  margin-top: 12px;
-  padding: 10px;
-  border-radius: 8px;
-  display: none;
-  font-size: 14px;
-}
-
-.message.success {
-  background: rgba(110, 168, 131, 0.9);
-  color: white;
-} */
-
-/* .message.error {
-  background: rgba(220, 38, 38, 0.9);
-  color: white;
-} */
-
 /* Centered popup overlay */
 .popup {
   position: fixed;
@@ -153,3 +134,36 @@ button:hover {
 .popup-content.error {
   background: #b91c1c;
 } /* red */
+
+/* Ensure loader stays inside card */
+.form-container {
+  position: relative;
+}
+
+/* Loader overlay */
+.loader-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(11, 23, 54, 0.85); /* matches dark theme */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 20;
+  border-radius: 16px;
+}
+
+/* Spinner */
+.spinner {
+  width: 42px;
+  height: 42px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid #16a34a; /* green to match button */
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
