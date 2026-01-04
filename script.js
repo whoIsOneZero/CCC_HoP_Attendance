@@ -2,6 +2,7 @@
 const form = document.getElementById("attendanceForm");
 const popup = document.getElementById("popup");
 const popupContent = document.getElementById("popup-content");
+const loader = document.getElementById("loader");
 
 // === Google Apps Script Web App URL ===
 const SCRIPT_URL =
@@ -83,9 +84,14 @@ function updateDateTime() {
 updateDateTime();
 setInterval(updateDateTime, 1000);
 
-// === Attendance Form Submission ===
 form.addEventListener("submit", async function (e) {
   e.preventDefault();
+
+  const submitBtn = form.querySelector('button[type="submit"]');
+
+  // Show loader + prevent double submit
+  loader.style.display = "flex";
+  submitBtn.disabled = true;
 
   const data = {
     name: document.getElementById("name").value.trim(),
@@ -111,5 +117,9 @@ form.addEventListener("submit", async function (e) {
     );
   } catch (error) {
     showPopup("❌ Failed to submit attendance. Please try again.", "error");
+  } finally {
+    // Always clean up
+    loader.style.display = "none";
+    submitBtn.disabled = false;
   }
 });
